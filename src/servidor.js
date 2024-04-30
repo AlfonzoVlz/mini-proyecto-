@@ -18,11 +18,11 @@ const server = http.createServer(async (req, res) => {
                 break;
             case '/api/usuarios':
                 try {
-                    const [usuarios] = await connetion.query('SELECT * FROM usuarios ;')
+                    const [usuarios] = await connetion.query('SELECT * FROM usuarios;')
 
                     await fs.writeFile('usuarios.json', JSON.stringify(usuarios))
 
-                    res.end(JSON.stringify({ usuarios }))
+                    res.end(JSON.stringify({ usuarios}))
                 } catch (error) {
                     res.writeHead(200, { "Content-Type": "application/json" })
                     res.end(JSON.stringify({ menssage: 'Error en el procedimeinto' }))
@@ -31,17 +31,17 @@ const server = http.createServer(async (req, res) => {
                 break;
 
             case '/api/usuarios/export':
-               try {
-                const [datosUsuario] = await connetion.query('SELECT * FROM usuarios;')
-                const string = datosUsuario.reduce(
-                    (acc, p) => (acc += `${p.id}, ${p.nombres},${p.apellidos},${p.direccion},${p.email},${p.dni},${p.edad},${p.telefono},${p.fecha_creacion_usuario}\n`), ''
-                );
-                await fs.writeFile('archivo.csv', string)
-                res.end(JSON.stringify({menssage : 'Exportacion de los datos con exito',}))
-               } catch (error) {
-                res.writeHead(200, { "Content-Type": "application/json" })
-                    res.end(JSON.stringify({ menssage : 'hubo un error interno', details: error.menssage}))
-               }
+                try {
+                    const [datosUsuario] = await connetion.query('SELECT * FROM usuarios;')
+                    const string = datosUsuario.reduce(
+                        (acc, p) => (acc += `${p.id}, ${p.nombres},${p.apellidos},${p.direccion},${p.email},${p.dni},${p.edad},${p.telefono},${p.fecha_creacion_usuario}\n`), ''
+                    );
+                    await fs.writeFile('archivo.csv', string)
+                    res.end(JSON.stringify({menssage : 'Exportacion de los datos con exito'}))
+                   } catch (error) {
+                    res.writeHead(200, { "Content-Type": "application/json" })
+                        res.end(JSON.stringify({ menssage : 'hubo un error interno', details: error.menssage}))
+                   }
 
                 break;
 
@@ -62,3 +62,22 @@ const server = http.createServer(async (req, res) => {
 })
 
 server.listen(3000, () => console.log('Mini proyecto ejecutandose'))
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
